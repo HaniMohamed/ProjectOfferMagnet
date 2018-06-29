@@ -49,16 +49,18 @@ String serachText;
 public  void onStart() {
 
     super.onStart();
-    db=new Database(getActivity());
+
 
 }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_offer, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerviewOffer);
+        db=new Database(getActivity());
         dataItems = new ArrayList<DataItem>();
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
