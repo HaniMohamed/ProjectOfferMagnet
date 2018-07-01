@@ -122,8 +122,8 @@ import static android.content.Context.LOCATION_SERVICE;
                                             }
                                             Log.i("tagconvertstr", "[" + response + "]");
                                             Intent intent = new Intent(GPSlocation.this, NavDrawer.class);
-
                                             startActivity(intent);
+
                                             if (response.contains("Done")) {
                                                // Intent intent = new Intent(GPSlocation.this, NavDrawer.class);
 
@@ -254,6 +254,9 @@ import static android.content.Context.LOCATION_SERVICE;
                 }
 
                 Toast.makeText( this, "" + MyLat + "\n" + MyLong +""+CityName, Toast.LENGTH_LONG ).show();
+                Intent intent = new Intent(GPSlocation.this, NavDrawer.class);
+                startActivity(intent);
+
                 Log.e( "Lat: ", MyLat + "" );
                 Log.e( "Long: ", MyLong + "" );
             }

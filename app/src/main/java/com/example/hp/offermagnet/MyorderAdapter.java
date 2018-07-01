@@ -232,7 +232,7 @@ public class MyorderAdapter extends RecyclerView.Adapter<MyorderAdapter.ViewHold
             public void onClick(View v) {
 
                 Intent intent=new Intent(context,OfferOfReqActivity.class);
-                intent.putExtra("Req_id",String.valueOf(dataItems.get(position).getId()));
+                intent.putExtra("Req_id",String.valueOf(dataItem.getId()));
 
                 context.startActivity(intent);
 

@@ -56,6 +56,7 @@ public class NavDrawer extends AppCompatActivity
         do_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 fragment = new HomeFragment();
                 Bundle bundle= new Bundle();
                 bundle.putString("srchTxt", search_text.getText().toString());
@@ -88,7 +89,7 @@ public class NavDrawer extends AppCompatActivity
                 .into(imageView);
         //name.append(db.getName());
 
-
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragment = new HomeFragment();
         Bundle bundle= new Bundle();
         bundle.putString("srchTxt", "");
@@ -138,6 +139,7 @@ public class NavDrawer extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.Home) {
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragment = new HomeFragment();
             Bundle bundle= new Bundle();
             bundle.putString("srchTxt", "");

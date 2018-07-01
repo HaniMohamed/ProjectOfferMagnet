@@ -50,11 +50,7 @@ String serachText;
 public  void onStart() {
 
     super.onStart();
-<<<<<<< HEAD
     //db=new Database(getActivity());
-=======
-
->>>>>>> 5059b5ab19c95110e076f645edb6c8d50dccdd8c
 
 }
     @Override
@@ -73,82 +69,17 @@ public  void onStart() {
         Toast.makeText(getActivity(),"city is: "+db.getCity(),Toast.LENGTH_SHORT).show();
 
         if(getArguments().getString("srchTxt").equals("")) {
-
+            getAllOfers();
         }else{
             serachText= getArguments().getString("srchTxt");
             Toast.makeText(getActivity(),"one:::"+serachText,Toast.LENGTH_SHORT).show();
+            setSeacrh(srchTxt);
         }
 
 
 
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading offer Data ...");
-        progressDialog.show();
-        if(load) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://offer-system.000webhostapp.com/GetOffers.php",
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //Toast.makeText(getActivity(),response,Toast.LENGTH_SHORT).show();
-                            try {
-                                //              Toast.makeText(getActivity(),"entered to one ",Toast.LENGTH_SHORT).show();
-                                String s = URLEncoder.encode(response, "ISO-8859-1");
-                                response = URLDecoder.decode(s, "UTF-8");
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
 
-                            progressDialog.dismiss();
-                            try {
-                                //            Toast.makeText(getActivity(),"try to one ",Toast.LENGTH_SHORT).show();
-                                Log.i("tagconvertstr", "[" + response + "]");
-                                JSONObject jsonObject = new JSONObject(response);
-                                JSONArray jsonArray = jsonObject.getJSONArray("data");
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject object = jsonArray.getJSONObject(i);
-                                    //Toast.makeText(getActivity(),"entered to one tr ",Toast.LENGTH_SHORT).show();
-                                    DataItem item = new DataItem(
 
-                                            object.getString("id"),
-                                            object.getString("title"),
-                                            object.getString("description"),
-                                            object.getString("profile_picture"),
-                                            object.getString("date_from"),
-                                            object.getString("date_to"),
-                                            object.getString("price"),
-                                            object.getString("likes"),
-                                            object.getInt("rate"),
-                                            object.getString("product_image"),
-                                            object.getString("phone"),
-                                            object.getString("people"),
-                                            object.getString("user_name")
-                                    );
-                                    dataItems.add(item);
-                                }
-                                adapter = new MyRecyclerViewAdapter(dataItems, getActivity());
-                                recyclerView.setAdapter(adapter);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> stringStringHashMap = new HashMap<>();
-                    stringStringHashMap.put("city", db.getCity());
-                    return stringStringHashMap;
-                }
-            };
-
-            Volley.newRequestQueue(getActivity()).add(stringRequest);
-        }
         //recyclerView.setAdapter(adapter);
         //adapter.setClickListener(this);
 
@@ -178,6 +109,75 @@ public  void onStart() {
         fab.setVisibility(View.GONE);
 
     }*/
+
+   public void getAllOfers(){
+       final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+       progressDialog.setMessage("Loading offer Data ...");
+       progressDialog.show();
+       StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://offer-system.000webhostapp.com/GetOffers.php",
+               new Response.Listener<String>() {
+                   @Override
+                   public void onResponse(String response) {
+                       //Toast.makeText(getActivity(),response,Toast.LENGTH_SHORT).show();
+                       try {
+                           //              Toast.makeText(getActivity(),"entered to one ",Toast.LENGTH_SHORT).show();
+                           String s = URLEncoder.encode(response, "ISO-8859-1");
+                           response = URLDecoder.decode(s, "UTF-8");
+                       } catch (UnsupportedEncodingException e) {
+                           e.printStackTrace();
+                       }
+
+                       progressDialog.dismiss();
+                       try {
+                           //            Toast.makeText(getActivity(),"try to one ",Toast.LENGTH_SHORT).show();
+                           Log.i("tagconvertstr", "[" + response + "]");
+                           JSONObject jsonObject = new JSONObject(response);
+                           JSONArray jsonArray = jsonObject.getJSONArray("data");
+                           for (int i = 0; i < jsonArray.length(); i++) {
+                               JSONObject object = jsonArray.getJSONObject(i);
+                               //Toast.makeText(getActivity(),"entered to one tr ",Toast.LENGTH_SHORT).show();
+                               DataItem item = new DataItem(
+
+                                       object.getString("id"),
+                                       object.getString("title"),
+                                       object.getString("description"),
+                                       object.getString("profile_picture"),
+                                       object.getString("date_from"),
+                                       object.getString("date_to"),
+                                       object.getString("price"),
+                                       object.getString("likes"),
+                                       object.getInt("rate"),
+                                       object.getString("product_image"),
+                                       object.getString("phone"),
+                                       object.getString("people"),
+                                       object.getString("user_name")
+                               );
+                               dataItems.add(item);
+                           }
+                           adapter = new MyRecyclerViewAdapter(dataItems, getActivity());
+                           recyclerView.setAdapter(adapter);
+
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       }
+                   }
+               }, new Response.ErrorListener() {
+           @Override
+           public void onErrorResponse(VolleyError error) {
+               progressDialog.dismiss();
+               Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+           }
+       }) {
+           @Override
+           protected Map<String, String> getParams() throws AuthFailureError {
+               HashMap<String, String> stringStringHashMap = new HashMap<>();
+               stringStringHashMap.put("city", "zagazig");
+               return stringStringHashMap;
+           }
+       };
+
+       Volley.newRequestQueue(getActivity()).add(stringRequest);
+   }
 
 
    public void setSeacrh(String text){
@@ -224,6 +224,7 @@ public  void onStart() {
                                dataItems.add(item);
                            }
                            adapter = new MyRecyclerViewAdapter(dataItems,getActivity());
+                           adapter.notifyDataSetChanged();
                            recyclerView.setAdapter(adapter);
 
                        } catch (JSONException e) {
@@ -251,7 +252,7 @@ public  void onStart() {
            protected Map<String, String> getParams() throws AuthFailureError {
                HashMap<String, String> stringStringHashMap = new HashMap<>();
                stringStringHashMap.put("city","zagazig" );
-               stringStringHashMap.put("word", srchTxt);
+               stringStringHashMap.put("word", "and");
 
                return stringStringHashMap;
            }

@@ -4,10 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProjectOfferMagnetV3.iml" filepath="$PROJECT_DIR$/ProjectOfferMagnetV3.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-<<<<<<< HEAD
-=======
-      <module fileurl="file://$PROJECT_DIR$/projectOffer.iml" filepath="$PROJECT_DIR$/projectOffer.iml" />
->>>>>>> 5059b5ab19c95110e076f645edb6c8d50dccdd8c
     </modules>
   </component>
 </project>
