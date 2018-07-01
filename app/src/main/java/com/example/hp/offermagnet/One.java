@@ -251,7 +251,7 @@ public  void onStart() {
            @Override
            protected Map<String, String> getParams() throws AuthFailureError {
                HashMap<String, String> stringStringHashMap = new HashMap<>();
-               stringStringHashMap.put("city","zagazig" );
+               stringStringHashMap.put("city",db.getCity() );
                stringStringHashMap.put("word", "and");
 
                return stringStringHashMap;
