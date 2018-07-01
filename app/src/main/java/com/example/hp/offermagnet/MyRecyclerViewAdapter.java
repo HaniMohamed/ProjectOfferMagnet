@@ -249,7 +249,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Title: " + dataItem.get(position).getTitle() + "\nDescription\n" + dataItem.get(position).getDesc() + "\nPrice: " + dataItem.get(position).getPrice()+"\n"+
+                String shareBody = "Contact person :"+dataItem.get(position).user_name+"\nTitle: " + dataItem.get(position).getTitle() + "\nDescription\n" + dataItem.get(position).getDesc() + "\nPrice: " + dataItem.get(position).getPrice()+"\n"+
                         "Started From " + dataItem.get(position).getDateFrom()+"\n"+"Online Until " + dataItem.get(position).getDateTo();
                 String Subject = "New Offer!";
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, Subject);

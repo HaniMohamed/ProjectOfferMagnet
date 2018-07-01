@@ -284,10 +284,15 @@ public class SubmitOfferFragment extends Fragment {
         btnOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                insertOffer();
                 String path = getPath(filePath);
+                Toast.makeText(getActivity(), path, Toast.LENGTH_SHORT).show();
+//                insertOffer();
+               /* if(txtPrice.getText().toString().equals("")&&txtTitle.getText().toString().equals("")&&txtDesc.getText().toString().equals("")
+                     &&producTitle.getSelectedItem().toString().equals("")&&spnCategory.getSelectedItem().toString().equals("Category")  )
 
-                //Uploading code
+                {
+                    Toast.makeText(getActivity(), "please full all ", Toast.LENGTH_SHORT).show();
+                }*/
                 try {
                     String uploadId = UUID.randomUUID().toString();
 

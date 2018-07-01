@@ -180,7 +180,7 @@ public class NavDrawer extends AppCompatActivity
             startActivity(intent);
         }
         else if (id==R.id.help) {
-            fragment = new PrivacyFragment();
+            fragment = new FQFragment();
             fragmentManager.beginTransaction();
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.container_body, fragment).addToBackStack( "myprofile" ).commit();

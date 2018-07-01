@@ -107,6 +107,7 @@ public class Offer_Req_Adapter extends RecyclerView.Adapter<Offer_Req_Adapter.Vi
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> stringStringHashMap = new HashMap<>();
                 stringStringHashMap.put("request_id", dataItem.get(position).getId());
+
                 stringStringHashMap.put("accepted", dataItem.get(position).getReq_id());
 
                 return stringStringHashMap;

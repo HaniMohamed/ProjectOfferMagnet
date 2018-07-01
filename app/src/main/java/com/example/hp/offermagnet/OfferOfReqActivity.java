@@ -44,8 +44,10 @@ ImageButton back;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_of_req);
+        extras=getIntent().getExtras();
         recyclerView = (RecyclerView) findViewById(R.id.OfferListRecyclerView);
         db=new Database(this);
+        Toast.makeText(OfferOfReqActivity.this,extras.getString("Req_id"),Toast.LENGTH_SHORT).show();
         back=(ImageButton)findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +115,8 @@ ImageButton back;
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> stringStringHashMap = new HashMap<>();
-                stringStringHashMap.put("request_id", extras.getString("Req_id"));
+
+                stringStringHashMap.put("request_id",extras.getString("Req_id"));
                 stringStringHashMap.put("id",db.getId());
 
                 return stringStringHashMap;

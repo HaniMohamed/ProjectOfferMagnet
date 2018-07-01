@@ -104,8 +104,10 @@ public class SubmitRequestFragment extends Fragment {
         spnCategory=(Spinner)view.findViewById(R.id.spinnerCategory) ;
         addAttach = (Button) view.findViewById(R.id.addAttachment);
         show_image = (ImageView) view.findViewById(R.id.show_image2);
+
         if (spnCategory.getSelectedItem().toString().trim().equals("Category")) {
             spnCategory.setFocusable(true);
+
 
         }
         if (spnCity.getSelectedItem().toString().trim().equals("Category")) {
