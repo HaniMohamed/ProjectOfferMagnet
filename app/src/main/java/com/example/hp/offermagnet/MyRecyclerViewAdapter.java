@@ -108,6 +108,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             @Override
             public void onClick(View v) {
                 // Show Details Action
+
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 alert.setTitle("Details");
                 // this is set the view from XML inside AlertDialog

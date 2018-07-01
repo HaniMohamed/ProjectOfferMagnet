@@ -44,14 +44,14 @@ public class Database extends SQLiteOpenHelper {
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.cont = context;
-        Toast.makeText(context,"Datbase opened",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"Datbase opened",Toast.LENGTH_SHORT).show();
         getReadableDatabase();
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Toast.makeText(cont,"Database on create",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(cont,"Database on create",Toast.LENGTH_SHORT).show();
 
         try {
             db.execSQL(DATABASE_CREATE);

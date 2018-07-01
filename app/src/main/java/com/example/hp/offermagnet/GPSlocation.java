@@ -118,10 +118,13 @@ import static android.content.Context.LOCATION_SERVICE;
                                                 e.printStackTrace();
                                             }
                                             Log.i("tagconvertstr", "[" + response + "]");
-                                            if (response.contains("Done")) {
-                                                Intent intent = new Intent(GPSlocation.this, NavDrawer.class);
+                                            Intent intent = new Intent(GPSlocation.this, NavDrawer.class);
 
-                                                startActivity(intent);
+                                            startActivity(intent);
+                                            if (response.contains("Done")) {
+                                               // Intent intent = new Intent(GPSlocation.this, NavDrawer.class);
+
+                                                //startActivity(intent);
 
                                                 Toast.makeText(GPSlocation.this, response, Toast.LENGTH_SHORT).show();
                                             } else if (response.contains(" not Done")) {

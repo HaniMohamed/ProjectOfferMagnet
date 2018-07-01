@@ -109,7 +109,7 @@ public class Two extends Fragment  {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> stringStringHashMap = new HashMap<>();
-                stringStringHashMap.put("city",db.getCity());
+                stringStringHashMap.put("city","zagazig" );
                 stringStringHashMap.put("age",String.valueOf(19));
                 stringStringHashMap.put("gender",db.getGender());
                 stringStringHashMap.put("cat1", "1");

@@ -105,7 +105,12 @@
 
                         android:background="@drawable/sign_back_button"
                         android:text="Details" />
+
+
+
+
                 </LinearLayout>
+
 
 
             </LinearLayout>

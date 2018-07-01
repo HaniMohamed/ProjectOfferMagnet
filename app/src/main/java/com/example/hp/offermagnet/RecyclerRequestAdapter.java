@@ -3,6 +3,7 @@ package com.example.hp.offermagnet;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -47,7 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequestAdapter.ViewHolder> {
 
-    private ArrayList<DataItemRequest> dataItem;
+    private ArrayList<DataItemRequest> dataItems;
     Context context;
     public static ItemClickListener clickListener;
     LayoutInflater inflater;
@@ -65,9 +66,9 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
     Database db;
     View view;
     // data is passed into the constructor
-    public RecyclerRequestAdapter(ArrayList<DataItemRequest> dataItem, Context context) {
+    public RecyclerRequestAdapter(ArrayList<DataItemRequest> dataItems, Context context) {
 
-        this.dataItem = dataItem;
+        this.dataItems = dataItems;
         this.context=context;
         db=new Database(context);
 
@@ -88,6 +89,8 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
     public void onBindViewHolder(ViewHolder holder, int i) {
         this.position=i;
 
+        final DataItemRequest dataItem =  dataItems.get(i);
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         alertLayout = inflater.inflate(R.layout.fragment_request_details, null);
         imageProfile = alertLayout.findViewById(R.id.imageProfileR);
@@ -99,12 +102,11 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
         //btnAddOffer=alertLayout.findViewById(R.id.addOffer);
         Join=alertLayout.findViewById(R.id.joinR);
         Picasso.with(context)
-                .load(dataItem.get(position).getImageUrl())
+                .load(dataItem.getImageUrl())
                 .into(holder.usrImage);
-        holder.txtTitle.setText(dataItem.get(position).getTitle());
-        holder.desc.setText(dataItem.get(position).getDesc());
+        holder.txtTitle.setText(dataItem.getTitle());
+        holder.desc.setText(dataItem.getDesc());
         holder.btnDetails.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -118,23 +120,30 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
                             ViewGroup parent = (ViewGroup) view.getParent();
                             if (parent != null) {
                                 parent.removeAllViews();
+                                dialog.cancel();
+                                dialog.dismiss();
                             }
                         }
                     }
                 });
                 AlertDialog dialog = alert.create();
-                dialog.show();
-                txtfinish.setText("finish in "+dataItem.get(position).getDateTo());
-                pro_des.setText(""+dataItem.get(position).getDesc());
 
-                pro_name.setText(""+dataItem.get(position).getUser_name());
+
+                txtfinish.setText("finish in "+dataItem.getDateTo());
+                pro_des.setText(""+dataItem.getDesc());
+
+                pro_name.setText(""+dataItem.getUser_name());
                 Picasso.with(context)
-                        .load(dataItem.get(position).getImageUrl())
+                        .load(dataItem.getImageUrl())
                         .into(imageProfile);
 
-                Picasso.with(context)
-                        .load(dataItem.get(position).getProductImageUrl())
-                        .into(pro_img);
+
+                if(!dataItem.getProductImageUrl().isEmpty()) {
+                    Picasso.with(context)
+                            .load(dataItem.getProductImageUrl())
+                            .into(pro_img);
+                }
+                dialog.show();
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://offer-system.000webhostapp.com/JoinedRequests.php",
                         new Response.Listener<String>() {
                             @Override
@@ -163,7 +172,7 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String, String> stringStringHashMap = new HashMap<>();
 
-                        stringStringHashMap.put("request_id", dataItem.get(position).getId());
+                        stringStringHashMap.put("request_id", dataItems.get(position).getId());
                         return stringStringHashMap;
                     }
 
@@ -204,7 +213,7 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 HashMap<String, String> stringStringHashMap = new HashMap<>();
                                 stringStringHashMap.put("user_id", db.getId());
-                                stringStringHashMap.put("request_id", String.valueOf(dataItem.get(position).getId()));
+                                stringStringHashMap.put("request_id", String.valueOf(dataItems.get(position).getId()));
                                 return stringStringHashMap;
                             }
 
@@ -226,9 +235,9 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
                 txtOffer=alertLayout.findViewById(R.id.offerOfRequest);
                 btnSend=alertLayout.findViewById(R.id.btnSendOffer);
                 Pro_img_offer=alertLayout.findViewById(R.id.userimageOffer);
-                pro_name.setText(""+dataItem.get(position).getUser_name());
+                pro_name.setText(""+dataItems.get(position).getUser_name());
                 Picasso.with(context)
-                        .load(dataItem.get(position).getImageUrl())
+                        .load(dataItems.get(position).getImageUrl())
                         .into(Pro_img_offer);
                 alert.setTitle("Add Offer");
                 alert.setView(alertLayout);
@@ -283,7 +292,7 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
                                 protected Map<String, String> getParams() throws AuthFailureError {
                                     HashMap<String, String> stringStringHashMap = new HashMap<>();
                                     stringStringHashMap.put("user_id", db.getId());
-                                    stringStringHashMap.put("request_id", dataItem.get(position).getId());
+                                    stringStringHashMap.put("request_id", dataItems.get(position).getId());
                                     stringStringHashMap.put("description", txtOffer.getText().toString());
                                     return stringStringHashMap;
                                 }
@@ -307,7 +316,7 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
     public int getItemCount()
     {
 
-        return dataItem.size();
+        return dataItems.size();
     }
     public void setClickListener(ItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
@@ -326,6 +335,9 @@ public class RecyclerRequestAdapter extends RecyclerView.Adapter<RecyclerRequest
             usrImage = (CircleImageView) itemView.findViewById(R.id.userPhotoR);
             btnDetails=(Button)itemView.findViewById(R.id.detailsRequButton) ;
             btnAddOffer=(Button)itemView.findViewById(R.id.addOffer);
+
+
+
             // btnDetails.setOnClickListener(this);
 
         }

@@ -49,7 +49,7 @@ String serachText;
 public  void onStart() {
 
     super.onStart();
-    db=new Database(getActivity());
+    //db=new Database(getActivity());
 
 }
     @Override
@@ -61,6 +61,9 @@ public  void onStart() {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerviewOffer);
         dataItems = new ArrayList<DataItem>();
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        db=new Database(getActivity());
+        Toast.makeText(getActivity(),"city is: "+db.getCity(),Toast.LENGTH_SHORT).show();
 
         if(getArguments().getString("srchTxt").equals("")) {
 
@@ -235,7 +238,7 @@ public  void onStart() {
            @Override
            protected Map<String, String> getParams() throws AuthFailureError {
                HashMap<String, String> stringStringHashMap = new HashMap<>();
-               stringStringHashMap.put("city",db.getCity() );
+               stringStringHashMap.put("city","zagazig" );
                stringStringHashMap.put("word", srchTxt);
 
                return stringStringHashMap;
