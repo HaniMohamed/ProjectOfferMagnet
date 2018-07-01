@@ -36,7 +36,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class MyOrderFragment extends Fragment {
-    RecyclerRequestAdapter adapter;
+    MyorderAdapter adapter;
 
     public MyOrderFragment() {
         // Required empty public constructor
@@ -95,7 +95,7 @@ public class MyOrderFragment extends Fragment {
                                 );
                                 dataItems.add(item);
                             }
-                            adapter = new RecyclerRequestAdapter(dataItems,getActivity());
+                            adapter = new MyorderAdapter(dataItems,getActivity());
                             recyclerView.setAdapter(adapter);
 
                         } catch (JSONException e) {

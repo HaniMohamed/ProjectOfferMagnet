@@ -93,25 +93,35 @@
             android:background="@color/BackgroudColor"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
+                android:orientation="horizontal"
                 >
-                <ImageButton
-                    android:background="@drawable/check_icon"
-                    android:layout_width="50dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:layout_marginLeft="100dp"
+                <Button
+                    android:background="@drawable/button_shape"
+                    android:layout_width="100dp"
+                    android:drawableTint="@color/colorWhite"
+                    android:src="@drawable/check_icon"
+
                     android:layout_height="50dp"
+                    android:text="call"
+
+                    android:id="@+id/call"
 
 
                     />
                 <ImageButton
-                    android:layout_width="50dp"
+                    android:background="@drawable/button_shape"
+                    android:layout_width="100dp"
+                   android:drawableTint="@color/colorWhite"
+                    android:src="@drawable/check_icon"
+                    android:layout_marginLeft="10dp"
                     android:layout_height="50dp"
 
-                    android:layout_marginLeft="25dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:background="@drawable/close_icon"
+                    android:id="@+id/accept"
+
 
                     />
+
+
             </LinearLayout>
 
 

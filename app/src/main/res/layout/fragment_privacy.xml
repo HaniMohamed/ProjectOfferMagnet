@@ -26,7 +26,7 @@
         android:background="@drawable/layout_shape"
         android:fontFamily="Gilroy ☞"
         android:gravity="top"
-        android:text="•	OfferMagnet is not available to persons whose membership has been suspended or blocked by the system according to their behavior.
+        android:text="\n\n OfferMagnet is not available to persons whose membership has been suspended or blocked by the system according to their behavior.
 \n•	The membership of offerMagnet is not available to persons under the age of 18 years.
 \n•	No person may register as a member of the system more than once.
 \n•	The system has the right to block or withdraw a person who provide any information that is untrue, inaccurate, not current or incomplete for customers.

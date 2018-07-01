@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -22,29 +21,26 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".UserTab"
             android:label="@string/title_activity_user_tab"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Category">
-
-        </activity>
+        <activity android:name=".Category" />
         <activity
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".uploadImage"></activity>
-        <activity android:name=".GPSlocation">
-
-        </activity>
+        <activity android:name=".uploadImage" />
+        <activity android:name=".GPSlocation" />
 
         <service android:name=".services.NotificationService" />
 
+        <activity android:name=".OfferOfReqActivity" />
+        <activity android:name=".ApprovedOfferActivity" />
+        <activity android:name=".RequestDetailsActivity" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
 
 </manifest>
