@@ -42,6 +42,7 @@ public class One extends Fragment  {
     ArrayList<DataItem> dataItems;
 Database db;
 String srchTxt;
+boolean load=true;
 String serachText;
     public One() {
         // Required empty public constructor
@@ -49,16 +50,22 @@ String serachText;
 public  void onStart() {
 
     super.onStart();
+<<<<<<< HEAD
     //db=new Database(getActivity());
+=======
+
+>>>>>>> 5059b5ab19c95110e076f645edb6c8d50dccdd8c
 
 }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_offer, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerviewOffer);
+        db=new Database(getActivity());
         dataItems = new ArrayList<DataItem>();
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -77,69 +84,71 @@ public  void onStart() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading offer Data ...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, "https://offer-system.000webhostapp.com/GetOffers.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Toast.makeText(getActivity(),response,Toast.LENGTH_SHORT).show();
-                        try {
-              //              Toast.makeText(getActivity(),"entered to one ",Toast.LENGTH_SHORT).show();
-                            String s = URLEncoder.encode(response,"ISO-8859-1");
-                            response = URLDecoder.decode(s,"UTF-8");
-                        }catch (UnsupportedEncodingException e){
-                            e.printStackTrace();
-                        }
-
-                        progressDialog.dismiss();
-                        try {
-                //            Toast.makeText(getActivity(),"try to one ",Toast.LENGTH_SHORT).show();
-                            Log.i("tagconvertstr", "["+response+"]");
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for (int i=0; i<jsonArray.length(); i++){
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                //Toast.makeText(getActivity(),"entered to one tr ",Toast.LENGTH_SHORT).show();
-                                DataItem item = new DataItem(
-
-                                        object.getString("id"),
-                                        object.getString("title"),
-                                        object.getString("description"),
-                                        object.getString("profile_picture"),
-                                        object.getString("date_from"),
-                                        object.getString("date_to"),
-                                        object.getString("price"),
-                                        object.getString("likes"),
-                                        object.getInt("rate"),
-                                        object.getString("product_image"),
-                                        object.getString("phone"),
-                                        object.getString("people")
-                                );
-                                dataItems.add(item);
+        if(load) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://offer-system.000webhostapp.com/GetOffers.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //Toast.makeText(getActivity(),response,Toast.LENGTH_SHORT).show();
+                            try {
+                                //              Toast.makeText(getActivity(),"entered to one ",Toast.LENGTH_SHORT).show();
+                                String s = URLEncoder.encode(response, "ISO-8859-1");
+                                response = URLDecoder.decode(s, "UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
                             }
-                            adapter = new MyRecyclerViewAdapter(dataItems,getActivity());
-                            recyclerView.setAdapter(adapter);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            try {
+                                //            Toast.makeText(getActivity(),"try to one ",Toast.LENGTH_SHORT).show();
+                                Log.i("tagconvertstr", "[" + response + "]");
+                                JSONObject jsonObject = new JSONObject(response);
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    //Toast.makeText(getActivity(),"entered to one tr ",Toast.LENGTH_SHORT).show();
+                                    DataItem item = new DataItem(
+
+                                            object.getString("id"),
+                                            object.getString("title"),
+                                            object.getString("description"),
+                                            object.getString("profile_picture"),
+                                            object.getString("date_from"),
+                                            object.getString("date_to"),
+                                            object.getString("price"),
+                                            object.getString("likes"),
+                                            object.getInt("rate"),
+                                            object.getString("product_image"),
+                                            object.getString("phone"),
+                                            object.getString("people"),
+                                            object.getString("user_name")
+                                    );
+                                    dataItems.add(item);
+                                }
+                                adapter = new MyRecyclerViewAdapter(dataItems, getActivity());
+                                recyclerView.setAdapter(adapter);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> stringStringHashMap = new HashMap<>();
-                stringStringHashMap.put("city",db.getCity());
-                return stringStringHashMap;
-            }
-        };
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> stringStringHashMap = new HashMap<>();
+                    stringStringHashMap.put("city", db.getCity());
+                    return stringStringHashMap;
+                }
+            };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
-
+            Volley.newRequestQueue(getActivity()).add(stringRequest);
+        }
         //recyclerView.setAdapter(adapter);
         //adapter.setClickListener(this);
 
@@ -173,11 +182,13 @@ public  void onStart() {
 
    public void setSeacrh(String text){
        srchTxt=text;
+       load=false;
        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://offer-system.000webhostapp.com/SearchOffer.php",
                new Response.Listener<String>() {
                    @Override
                    public void onResponse(String response) {
                        try {
+                           load=true;
                            //              Toast.makeText(getActivity(),"entered to one ",Toast.LENGTH_SHORT).show();
                            String s = URLEncoder.encode(response,"ISO-8859-1");
                            response = URLDecoder.decode(s,"UTF-8");
@@ -209,6 +220,7 @@ public  void onStart() {
                                        object.getString("phone"),
                                        object.getString("people")
                                );
+
                                dataItems.add(item);
                            }
                            adapter = new MyRecyclerViewAdapter(dataItems,getActivity());
@@ -248,7 +260,5 @@ public  void onStart() {
        Volley.newRequestQueue(getContext()).add(stringRequest);
 
     }
-
-
 
 }

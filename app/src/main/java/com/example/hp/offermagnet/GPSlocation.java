@@ -85,6 +85,7 @@ import static android.content.Context.LOCATION_SERVICE;
     double MyLat,MyLong;
     String CityName;
     Button btn;
+    String cityNmae;
     TextView txt;
     private Location location;
     private LocationListener locationListener;
@@ -95,7 +96,9 @@ import static android.content.Context.LOCATION_SERVICE;
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_gps);
                 btn = (Button) findViewById(R.id.turnOnL);
+
             db=new Database(this);
+            cityNmae=db.getCity();
             ActivityCompat.requestPermissions(GPSlocation.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 123);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -146,7 +149,7 @@ import static android.content.Context.LOCATION_SERVICE;
                                 protected Map<String, String> getParams() throws AuthFailureError {
                                     HashMap<String, String> stringStringHashMap = new HashMap<>();
                                     stringStringHashMap.put("user_id",db.getId() );
-                                    stringStringHashMap.put("city", CityName);
+                                    stringStringHashMap.put("city", cityNmae);
                                     stringStringHashMap.put("longitude", String.valueOf(MyLong));
                                     stringStringHashMap.put("latitude", String.valueOf(MyLat));
                                     return stringStringHashMap;

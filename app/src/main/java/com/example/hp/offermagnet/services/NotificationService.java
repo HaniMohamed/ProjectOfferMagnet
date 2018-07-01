@@ -27,10 +27,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.hp.offermagnet.ApprovedOfferActivity;
 import com.example.hp.offermagnet.Database;
+import com.example.hp.offermagnet.DetailsActivity;
 import com.example.hp.offermagnet.MainActivity;
 import com.example.hp.offermagnet.NavDrawer;
 import com.example.hp.offermagnet.R;
+import com.example.hp.offermagnet.RequestDetailsActivity;
 import com.example.hp.offermagnet.Splash1;
 
 import org.json.JSONArray;
@@ -67,9 +70,9 @@ public class NotificationService extends Service {
         runnable = new Runnable() {
             public void run() {
                 getOffers();
-               getRequests();
-               getOfferOnRequest();
-               getApprovedOffer();
+                getRequests();
+                getOfferOnRequest();
+                getApprovedOffer();
 
                 handler.postDelayed(runnable, 10000);
             }
@@ -114,6 +117,15 @@ public class NotificationService extends Service {
                                 int id = Integer.parseInt(jsonObject1.getString("id"));
                                 String title=jsonObject1.getString("title");
                                 String desc=jsonObject1.getString("description");
+                                String from=jsonObject1.getString("date_from");
+                                String to=jsonObject1.getString("date_to");
+                                String phone=jsonObject1.getString("phone");
+                                String product_image=jsonObject1.getString("product_image");
+                                String profile_picture=jsonObject1.getString("profile_picture");
+                                String rate=jsonObject1.getString("rate");
+                                String people=jsonObject1.getString("people");
+                                String price=jsonObject1.getString("price");
+                                String likes=jsonObject1.getString("likes");
                                 //Toast.makeText(context, jsonObject1.getString("id"), Toast.LENGTH_LONG).show();
 
                                 if(id>seenOffer){
@@ -123,7 +135,20 @@ public class NotificationService extends Service {
                                                     .setContentTitle(title)
                                                     .setContentText(desc);
 
-                                    Intent notificationIntent = new Intent(context, NavDrawer.class);
+
+                                    Intent notificationIntent = new Intent(context, DetailsActivity.class);
+                                    notificationIntent.putExtra("from",from);
+                                    notificationIntent.putExtra("to",to);
+                                    notificationIntent.putExtra("phone",phone);
+                                    notificationIntent.putExtra("profile_picture",profile_picture);
+                                    notificationIntent.putExtra("rate",rate);
+                                    notificationIntent.putExtra("people",people);
+                                    notificationIntent.putExtra("price",price);
+                                    notificationIntent.putExtra("likes",likes);
+                                    notificationIntent.putExtra("title",title);
+                                    notificationIntent.putExtra("desc",desc);
+                                    notificationIntent.putExtra("id",id);
+
                                     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
                                             PendingIntent.FLAG_UPDATE_CURRENT);
                                     builder.setContentIntent(contentIntent);
@@ -182,6 +207,11 @@ public class NotificationService extends Service {
                                 int id = Integer.parseInt(jsonObject1.getString("id"));
                                 String title=jsonObject1.getString("title");
                                 String desc=jsonObject1.getString("description");
+                                String validate_date=jsonObject1.getString("validate_date");
+                                String user_name=jsonObject1.getString("user_name");
+                                String phone=jsonObject1.getString("phone");
+                                String profile_picture=jsonObject1.getString("profile_picture");
+                                String attachment=jsonObject1.getString("attachment");
                                 //Toast.makeText(context, jsonObject1.getString("id"), Toast.LENGTH_LONG).show();
 
                                 if(id>seenRequest){
@@ -191,7 +221,15 @@ public class NotificationService extends Service {
                                                     .setContentTitle(title)
                                                     .setContentText(desc);
 
-                                    Intent notificationIntent = new Intent(context, NavDrawer.class);
+                                    Intent notificationIntent = new Intent(context, RequestDetailsActivity.class);
+                                    notificationIntent.putExtra("phone",phone);
+                                    notificationIntent.putExtra("profile_picture",profile_picture);
+                                    notificationIntent.putExtra("title",title);
+                                    notificationIntent.putExtra("desc",desc);
+                                    notificationIntent.putExtra("id",id);
+                                    notificationIntent.putExtra("user_name",user_name);
+                                    notificationIntent.putExtra("validate_date",validate_date);
+                                    notificationIntent.putExtra("attachment",attachment);
                                     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
                                             PendingIntent.FLAG_UPDATE_CURRENT);
                                     builder.setContentIntent(contentIntent);
@@ -318,6 +356,10 @@ public class NotificationService extends Service {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(x);
                                 int id = Integer.parseInt(jsonObject1.getString("approv_id"));
                                 String title=jsonObject1.getString("request_title");
+                                String phone=jsonObject1.getString("offer_userPhone");
+                                String user_name=jsonObject1.getString("offer_username");
+                                String picture=jsonObject1.getString("offer_image");
+
                                 String desc=jsonObject1.getString("description");
 
 
@@ -328,7 +370,14 @@ public class NotificationService extends Service {
                                                     .setContentTitle("New Approved offer on Request: "+title)
                                                     .setContentText(desc);
 
-                                    Intent notificationIntent = new Intent(context, NavDrawer.class);
+                                    Intent notificationIntent = new Intent(context, ApprovedOfferActivity.class);
+                                    notificationIntent.putExtra("name",user_name);
+                                    notificationIntent.putExtra("title",title);
+                                    notificationIntent.putExtra("desc",desc);
+                                    notificationIntent.putExtra("phone",phone);
+                                    notificationIntent.putExtra("picture",picture);
+
+
                                     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
                                             PendingIntent.FLAG_UPDATE_CURRENT);
                                     builder.setContentIntent(contentIntent);

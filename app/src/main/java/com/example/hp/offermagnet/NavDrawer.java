@@ -62,11 +62,13 @@ public class NavDrawer extends AppCompatActivity
                 fragment.setArguments(bundle);
                 fragmentManager.beginTransaction();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                prefEditor= getSharedPreferences("AppPrefrences", Context.MODE_PRIVATE).edit();
                 transaction.add(R.id.container_body, fragment).addToBackStack( "home" ).commit();
 
             }
         });
+
+        prefEditor= getSharedPreferences("AppPrefrences", Context.MODE_PRIVATE).edit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -178,7 +180,7 @@ public class NavDrawer extends AppCompatActivity
             startActivity(intent);
         }
         else if (id==R.id.help) {
-            fragment = new PrivacyFragment();
+            fragment = new FQFragment();
             fragmentManager.beginTransaction();
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.container_body, fragment).addToBackStack( "myprofile" ).commit();

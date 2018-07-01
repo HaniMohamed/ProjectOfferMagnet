@@ -50,7 +50,7 @@ public class LogIn extends Fragment {
         phone = (EditText) rootView.findViewById(R.id.phoneEditText);
         pass = (EditText) rootView.findViewById(R.id.passEditText);
         prefEditor= getActivity().getSharedPreferences("AppPrefrences", Context.MODE_PRIVATE).edit();
-
+        database = new Database(getActivity());
         phone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -115,7 +115,7 @@ public class LogIn extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        database = new Database(getActivity());
+
 
     }
 
@@ -127,7 +127,7 @@ public class LogIn extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Toast.makeText(getContext().getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                         Toast.makeText(getContext().getApplicationContext(), response, Toast.LENGTH_LONG).show();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray jsonArray = jsonObject.getJSONArray("response");

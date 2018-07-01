@@ -87,8 +87,10 @@ public class uploadImage extends AppCompatActivity {
                             .setMaxRetries(2)
                             .startUpload();//Starting the upload
                     Intent intent = new Intent(uploadImage.this, Category.class);
-                    intent.putExtra("user_id", extras.getString("user_id"));
-                    startActivity(intent);
+
+                        intent.putExtra("user_id", extras.getString("user_id"));
+                        startActivity(intent);
+
 
                 } catch (Exception exc) {
                     Toast.makeText(uploadImage.this, exc.getMessage(), Toast.LENGTH_SHORT).show();
